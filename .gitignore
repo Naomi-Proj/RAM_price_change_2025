@@ -1,0 +1,18 @@
+# Data — regenerable via R/01_download.R
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# R session junk
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+
+# renv library (renv.lock records what's needed)
+renv/library/
+renv/staging/
+
+# macOS
+.DS_Store
