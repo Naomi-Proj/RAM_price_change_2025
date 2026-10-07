@@ -172,4 +172,4 @@ saveRDS(panel, "data/processed/panel.rds")
 
 cat("Eligible countries —",
     "ppi:",  sum(eligible$outcome == "ppi"),
-    "| prod:", sum(eligible$outcome == "prod"), "\n")
+    "| prod:", sum(eligible$outcome == "prod"), "\n") 
