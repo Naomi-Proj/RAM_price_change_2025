@@ -51,35 +51,55 @@ loo_rng <- 100 * (exp(range(loo$est)) - 1)
 
 # Summary
 
+This study analyzes the possible affect on producer prices of memory-heavy
+electronics sector after the memory price shock of October 2025, specifically 
+in the European Union. Since the memory-chip prices roughly quadrupled, the 
+expectation stands that sectors who's production relays greatly on these
+memory-chips, would raise their prices more than sectors who's production
+doesn't. However, after eight months since the shock, this study finds that
+European producers of computers, electronic and optical products (NACE C26) had
+not raised their domestic prices faster than comparable manufacturers in the
+same countries.
+
 The estimated relative change in C26 producer prices is
 `r pct(main$est_pct)` (95% CI `r pct(main$lo_pct)` to `r pct(main$hi_pct)`).
 
-Eight months after memory-chip prices roughly quadrupled, European producers
-of computers, electronic and optical products (NACE C26) had not raised their
-domestic prices faster than comparable manufacturers in the same countries.
-The confidence interval rules out a relative price increase above about
-`r pct(main$hi_pct)`; allowing for pre-existing trends too small to detect,
-effects above roughly 3–4% are excluded. Higher memory costs had not shown up in 
-C26 output prices by May 2026, either because contract prices had not yet
-adjusted, or because costs were absorbed in margins or inventories; this data
-cannot tell which.
+This confidence interval rules out a relative price increase above about
+`r pct(main$hi_pct)`, meaning that effects above roughly 3–4% are excluded, 
+against the rise in nearly 400% in raw material price. Higher memory costs had 
+not shown up in  C26 output prices by May 2026, either because contract prices
+had not yet adjusted, or because costs were absorbed in margins or inventories;
+this data cannot tell which.
 
 # Question and background
 
-From October 2025, DRAM prices rose sharply: a 16Gb DDR5 chip went from
-roughly \$6.84 in September 2025 to about \$27.20 by December 2025. The cause
-was on the supply side. Memory manufacturers reallocated capacity toward
-high-bandwidth memory (HBM) for AI data centres, reducing supply of
-conventional DRAM. The shock therefore did not originate in demand from
-European manufacturers, which makes it external to the industries studied.
-
 The question is one of **cost pass-through**: when an input becomes more
 expensive, how much of the increase reaches the prices customers pay, and with
-what delay. Sectors differ sharply in how much memory they use. Computers,
-electronic and optical products (C26) are memory-intensive; electrical
-equipment (C27) and machinery (C28) use very little. If memory costs were
-passed on, C26 prices should have risen relative to C27 and C28 from late
-2025.
+what delay. Sectors differ sharply in how much memory they use. This study 
+focused on 3 sectors in particular:
+
+**treatment group**: C26 - Computers, electronic and optical products. This
+sector is memory-intensive
+
+**control groups**: C27 - electrical equipment, C28 - machinery. Both sectors
+use very little little memory-chips.
+
+C26 prices should have risen relative to C27 and C28 from late 2025.
+
+**The Shock**: From October 2025, DRAM prices rose sharply. The cause was on the
+supply side. Memory manufacturers reallocated capacity toward high-bandwidth 
+memory for AI data centers (as is said in "How AI is  creating memory shortage",
+_J.P.Morgan_, [the study](https://www.jpmorgan.com/insights/global-research/artificial-intelligence/dram-memory-shortage-from-ai)), reducing supply of conventional DRAM. The shock therefore did 
+not originate in demand from European manufacturers, which makes it external to 
+the industries studied.
+
+**Why production was dropped**: The original question reviewd not only the 
+producers' prices of C26, but also the affect on the sector's production. 
+However, after viewing figure 3 (under 4.1 Descriptive evidence, Within-country 
+sector gap, prod), it was evident that production did not hold the crucial 
+assumption DiD is based on: parallel pre-trends, and so this line of questioning
+was dropped and the focus turned to producers' prices solely.
+For further details - section 8 "Production: a reported design failure".
 
 # Data and sample
 
@@ -96,9 +116,10 @@ Domestic-market prices are used rather than total or export prices. Export
 prices carry exchange-rate movements, and C26 exports more than its controls,
 so that variation would not cancel between sectors.
 
-**Period.** January 2019 to May 2026. The window ends in May 2026 because
-Portugal's production reporting becomes incomplete from June 2026; dropping a
-month costs one month, while dropping a country costs every month.
+**Period.** January 2019 to May 2026. The window ends in May 2026 instead of  because
+Portugal's production reporting becomes incomplete from June 2026; when faced 
+with the decision between dropping a month or a country - dropping a month costs
+only one month, while dropping a country costs every month.
 
 **Sample rule.** The population is the EU27 member states, which also excludes
 Eurostat aggregates such as the EU and euro-area totals. A country is eligible
@@ -316,6 +337,33 @@ size of the error the window rule avoids.
 ```{r loo, echo = FALSE}
 include_graphics("figures/leave_one_out.png")
 ```
+
+# Conclusions
+
+## What the data means
+
+Evident by the estimate, the shock had not yet reached electronic prices yet
+(by May 2026). Even eight months later C26 producer prices moved in step with
+comparable sectors in the same countries. While there was rise in C26 prices, 
+but a similar rise was found in both C27 and C28, meaning that something hit 
+all manufacturing, be it energy costs, wages, or inflation, but not memory.
+
+**What the data doesn't mean**: But "not yet" does not mean "never". Memory is 
+bought on quarterly and annual contracts, so higher spot prices reach 
+manufacturers’ costs only as contracts renew. What the data shows is consistent
+with costs that hadn’t arrived yet, or that firms were absorbing them. It can’t 
+tell which.
+
+## What I would do next
+
+I would rerun the tests after more data has been published to the public, 
+specifically after contract renewals. Annual contracts renewed around January 
+2026 and quarterly ones every three months, so their effect on prices would show
+up in data published after mid-2026.
+
+**How to rerun:** download a new vintage after contracts renewal, extend 
+WIN_END accordingly to an established rule before seeing the results, and then 
+run the R files again (under 10 - Reproducibility). 
 
 # Production: a reported design failure
 
